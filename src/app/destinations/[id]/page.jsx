@@ -23,7 +23,7 @@ const page = async ({ params }) => {
     description,
   } = destination;
 
-  // console.log(destination, "destination from detailed page");
+
   return (
     <div className="w-10/12 mx-auto">
       <div className="flex items-center justify-end gap-2 mt-10 mb-5  ">

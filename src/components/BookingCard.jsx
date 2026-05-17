@@ -1,6 +1,7 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
 import { Button, Card, DateField, Label } from "@heroui/react";
+import { redirect } from "next/navigation";
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -31,6 +32,7 @@ const BookingCard = ({ destination }) => {
     });
     const data = await res.json();
     toast.success('your booking successfully added')
+    redirect('/destinations')
   };
 
   return (
@@ -38,7 +40,9 @@ const BookingCard = ({ destination }) => {
       <p className="text-sm font-light">Starting from</p>
       <h2 className="text-3xl font-bold">$ {price}</h2>
       <p className="text-sm font-light">per person</p>
-      <DateField onChange={setDepartureDate} className="w-[256px]" name="date">
+      <DateField 
+      isRequired
+      onChange={setDepartureDate} className="w-[256px]" name="date">
         <Label>Departure Date</Label>
         <DateField.Group>
           <DateField.Input>
