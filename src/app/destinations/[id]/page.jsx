@@ -1,3 +1,4 @@
+import BookingCard from "@/components/BookingCard";
 import { DeleteDialog } from "@/components/DeleteDialog";
 import { EditDestinationForm } from "@/components/EditDestinationForm";
 
@@ -22,7 +23,7 @@ const page = async ({ params }) => {
     description,
   } = destination;
 
-  console.log(destination, "destination from detailed page");
+  // console.log(destination, "destination from detailed page");
   return (
     <div className="w-10/12 mx-auto">
       <div className="flex items-center justify-end gap-2 mt-10 mb-5  ">
@@ -30,8 +31,15 @@ const page = async ({ params }) => {
         <EditDestinationForm destination={destination} />
       </div>
 
-      <Image alt={destinationName} src={imageUrl} height={500} width={800} />
-      <div className="p-2">
+      <Image 
+      alt={destinationName} 
+      src={imageUrl} 
+      height={500} 
+      width={800}
+      />
+
+   <div className="flex justify-between m-5 p-3">
+       <div className="p-2">
         <div className="flex items-center gap-1">
           <LuMapPin />
           <span>{country}</span>
@@ -47,11 +55,12 @@ const page = async ({ params }) => {
               {duration}
             </div>
           </div>
-          <div className="text-2xl font-bold">$ {price}</div>
         </div>
         <div className="mt-10 text-3xl font-bold">Overview</div>
         <div>{description}</div>
       </div>
+      <BookingCard destination={destination}/>
+   </div>
     </div>
   );
 };
