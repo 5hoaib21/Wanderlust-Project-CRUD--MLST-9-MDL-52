@@ -2,6 +2,7 @@
 import { authClient } from "@/lib/auth-client";
 import { Button, Card, DateField, Label } from "@heroui/react";
 import React, { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const BookingCard = ({ destination }) => {
   const { data: session } = authClient.useSession();
@@ -11,9 +12,9 @@ const BookingCard = ({ destination }) => {
 
   const handleBookNow = async () => {
     const bookingData = {
-      userId: user.id,
-      userImage: user.image,
-      userName: user.name,
+      userId: user?.id,
+      userImage: user?.image,
+      userName: user?.name,
       destinationId: _id,
       destinationName,
       price,
@@ -29,7 +30,7 @@ const BookingCard = ({ destination }) => {
       body: JSON.stringify(bookingData),
     });
     const data = await res.json();
-    console.log(data, "data from f");
+    toast.success('your booking successfully added')
   };
 
   return (
@@ -48,6 +49,7 @@ const BookingCard = ({ destination }) => {
       <Button onClick={handleBookNow} className={"w-full"}>
         Book Now
       </Button>
+      <Toaster />
     </Card>
   );
 };
