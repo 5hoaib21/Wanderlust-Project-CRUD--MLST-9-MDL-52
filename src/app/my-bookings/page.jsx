@@ -8,9 +8,17 @@ const page = async () => {
     headers: await headers(),
   });
 
+    const {token} = await auth.api.getToken({
+      headers: await headers()
+    })
+
   const user = session?.user;
 
-  const res = await fetch(`http://localhost:8008/booking/${user?.id}`);
+  const res = await fetch(`http://localhost:8008/booking/${user?.id}`, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  });
 
   const bookings = await res.json();
 

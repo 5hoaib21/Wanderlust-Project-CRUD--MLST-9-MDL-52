@@ -13,7 +13,7 @@ const page = async ({ params }) => {
   const {token} = await auth.api.getToken({
     headers: await headers()
   })
-  console.log(token, 'token');
+
   const res = await fetch(`http://localhost:8008/destination/${id}`, {
     headers: {
       authorization: `Bearer ${token}`
