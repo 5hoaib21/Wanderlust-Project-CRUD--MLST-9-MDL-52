@@ -1,17 +1,24 @@
 import BookingCard from "@/components/BookingCard";
 import { DeleteDialog } from "@/components/DeleteDialog";
 import { EditDestinationForm } from "@/components/EditDestinationForm";
-
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Image from "next/image";
 import React from "react";
-
 import { FaRegCalendar } from "react-icons/fa";
 import { LuMapPin } from "react-icons/lu";
 
 const page = async ({ params }) => {
   const { id } = await params;
-
-  const res = await fetch(`http://localhost:8008/destination/${id}`);
+  const {token} = await auth.api.getToken({
+    headers: await headers()
+  })
+  console.log(token, 'token');
+  const res = await fetch(`http://localhost:8008/destination/${id}`, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  });
   const destination = await res.json();
   const {
     _id,
@@ -32,8 +39,8 @@ const page = async ({ params }) => {
       </div>
 
       <Image 
-      alt={destinationName} 
       src={imageUrl} 
+      alt={destinationName} 
       height={500} 
       width={800}
       />
